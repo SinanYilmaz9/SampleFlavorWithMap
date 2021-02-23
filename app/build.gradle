@@ -1,0 +1,80 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.huawei.agconnect'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "app.sinanyilmaz.sampleflavorwithmap"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            // Signing certificate.
+            storeFile file("../sampleflavorkeystore.jks")
+            // KeyStore password.
+            storePassword "YOUR_PASSWORD"
+            // Alias.
+            keyAlias "key0"
+            // Key password.
+            keyPassword "YOUR_PASSWORD"
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        debug {
+
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    flavorDimensions "flavor"
+
+    productFlavors{
+        UAT {
+            applicationId "app.sinanyilmaz.sampleflavorwithmap"
+            dimension "flavor"
+        }
+        PROD {
+            applicationId "app.sinanyilmaz.sampleflavorwithmapprod"
+            dimension "flavor"
+        }
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.huawei.agconnect:agconnect-core:1.4.2.300'
+    implementation 'com.huawei.hms:maps:5.1.0.300'
+
+}
